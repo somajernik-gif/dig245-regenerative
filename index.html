@@ -1,19 +1,120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- meta tags, links to css, etc. -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Generative Design</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>A Day by Chance</title>
+
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
 
-    <!-- visible content goes here -->
-	<h1>Generative Design</h1>
-	<p>See README.md for info</p>
+  <header>
+    <h1>A Day By Chance</h1>
+    <p>An imaginary forecast and what to do!</p>
+  </header>
 
-    <!-- load javascript after the page elements render -->
-    <script src="assets/js/main.js"></script>
+  <main>
+
+    <div class="steps">
+      <p>01 Choose your season</p>
+      <p>02 Let chance decide</p>
+      <p>03 Try your activity</p>
+    </div>
+
+    <!-- Controls -->
+    <section class="controls" aria-label="Generate your day">
+      <label for="season">Choose a season</label>
+
+      <select id="season" name="season">
+        <option value="spring">Spring</option>
+        <option value="summer">Summer</option>
+        <option value="fall" selected>Fall</option>
+        <option value="winter">Winter</option>
+      </select>
+
+      <button id="generate-button" type="button">
+        Generate My Day
+      </button>
+    </section>
+
+    <!-- Forecast -->
+    <section class="forecast" aria-label="Your imaginary forecast">
+      <div class="forecast-text">
+        <p id="temperature"></p>
+        <h2 id="sky"></h2>
+        <p id="wind"></p>
+      </div>
+
+      <svg
+        id="weather-scene"
+        width="300"
+        height="180"
+        viewBox="0 0 300 180"
+        role="img"
+        aria-label="Generated weather illustration">
+      </svg>
+    </section>
+
+    <!-- Activity -->
+    <section class="activity-box" aria-label="Something to try">
+      <p id="activity"></p>
+    </section>
+
+    <!-- Project explanation -->
+    <section class="project-info">
+      <h2>Concept</h2>
+
+      <p>
+        A Day by Chance generates an imaginary forecast and a
+        simple activity inspired by it. Visitors choose a season,
+        then generate different combinations of weather,
+        temperature, and suggestions.
+      </p>
+
+      <p>
+        The season sets the rules, while random selections make
+        each result unpredictable. The project encourages visitors
+        to pause and imagine a different way to spend part of
+        their day.
+      </p>
+    </section>
+
+    <section class="project-info">
+      <h2>Rules and Randomness</h2>
+
+      <ul>
+        <li>
+          Each season has a temperature range and a list of
+          possible weather conditions.
+        </li>
+        <li>
+          In this project, snowy forecasts use temperatures
+          between 20°F and 32°F.
+        </li>
+        <li>
+          Activities are selected from lists that match the
+          sky condition.
+        </li>
+        <li>
+          Each click makes new selections, although some
+          combinations may repeat.
+        </li>
+      </ul>
+    </section>
+
+   
+
+  </main>
+
+  <footer>
+    <p>Made for inspiration, not actual weather predictions.</p>
+    <p>A project by Sophie Majernik for DIG 245.</p>
+  </footer>
+
+<script src="assets/js/main.js"></script>
+
 </body>
 </html>
