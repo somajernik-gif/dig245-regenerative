@@ -105,13 +105,13 @@ function randomInt(min = 1, max = 100) {
 // Intent: Display the matching weather image instead of generating SVG shapes.
 function drawWeather(sky) {
   if (sky === "Sunny") {
-    weatherScene.src = "assets/images/sunny.png";
+    weatherScene.src = "assets/img/sunny.png";
   } else if (sky === "Cloudy") {
-    weatherScene.src = "assets/images/cloudy.png";
+    weatherScene.src = "assets/img/cloudy.png";
   } else if (sky === "Rainy") {
-    weatherScene.src = "assets/images/rainy.png";
+    weatherScene.src = "assets/img/rainy.png";
   } else {
-    weatherScene.src = "assets/images/snowy.png";
+    weatherScene.src = "assets/img/snowy.png";
   }
 
   weatherScene.alt = sky + " weather illustration";
