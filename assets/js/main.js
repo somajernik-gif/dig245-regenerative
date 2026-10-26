@@ -101,86 +101,121 @@ function randomInt(min = 1, max = 100) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// AI assistance: Helped write the SVG weather illustrations
-// using random sizes, positions, and repeated shapes.
+// [AI-Assisted: GPT-6 | 2026-10-25]
+// Intent: Improve the SVG weather artwork to match the Figma design,
+// using coordinated colors and controlled random variation.
 function drawWeather(sky) {
-  // Clear the previous illustration.
   weatherScene.innerHTML = "";
-
-  // Describe the illustration.
-  weatherScene.setAttribute("aria-label", sky + " weather illustration");
-
-  // Match the illustration background to the forecast panel.
-  weatherScene.innerHTML +=
-    '<rect width="300" height="180" fill="#ddebf0"></rect>';
+  weatherScene.setAttribute(
+    "aria-label",
+    sky + " weather illustration"
+  );
 
   if (sky === "Sunny") {
-    // Change the sun's size and position.
-    const sunSize = randomInt(25, 45);
-    const sunX = randomInt(50, 250);
+    const sunX = randomInt(140, 165);
+    const sunY = 65;
+    const sunSize = randomInt(28, 34);
 
-    weatherScene.innerHTML +=
-      `<circle
+    // Repeat a ray around the center of the sun.
+    for (let angle = 0; angle < 360; angle += 30) {
+      weatherScene.innerHTML += `
+        <line
+          x1="${sunX}"
+          y1="${sunY - sunSize - 8}"
+          x2="${sunX}"
+          y2="${sunY - sunSize - 22}"
+          stroke="#F2CE68"
+          stroke-width="4"
+          stroke-linecap="round"
+          transform="rotate(${angle} ${sunX} ${sunY})">
+        </line>
+      `;
+    }
+
+    weatherScene.innerHTML += `
+      <circle
         cx="${sunX}"
-        cy="65"
+        cy="${sunY}"
         r="${sunSize}"
-        fill="#f2ce68">
-      </circle>`;
+        fill="#F2CE68">
+      </circle>
+    `;
+
+    drawCloud(randomInt(12, 25), 118, 0.9, "#FFF9EE");
+    drawCloud(randomInt(195, 210), 115, 0.85, "#FFF9EE");
+    drawCloud(238, randomInt(40, 55), 0.55, "#FFF9EE");
 
   } else if (sky === "Cloudy") {
-    // Draw overlapping cloud circles.
-    const cloudCount = randomInt(5, 10);
-
-    for (let i = 0; i < cloudCount; i++) {
-      const x = randomInt(35, 265);
-      const y = randomInt(35, 100);
-      const size = randomInt(20, 35);
-
-      weatherScene.innerHTML +=
-        `<circle
-          cx="${x}"
-          cy="${y}"
-          r="${size}"
-          fill="#fff9ee">
-        </circle>`;
-    }
+    // Layer darker clouds behind lighter clouds.
+    drawCloud(randomInt(125, 145), 35, 1.25, "#A6B8BC");
+    drawCloud(randomInt(35, 50), 65, 1.35, "#CBD5CF");
+    drawCloud(randomInt(100, 115), 95, 1.35, "#FFF9EE");
 
   } else if (sky === "Rainy") {
-    // Draw scattered rain lines.
-    const dropCount = randomInt(15, 30);
+    const dropCount = randomInt(10, 16);
 
+    // Space drops across the scene with small random offsets.
     for (let i = 0; i < dropCount; i++) {
-      const x = randomInt(15, 285);
-      const y = randomInt(15, 150);
-      const length = randomInt(8, 18);
+      const x = 45 + i * 13 + randomInt(-3, 3);
+      const y = randomInt(105, 145);
+      const size = randomInt(7, 11);
 
-      weatherScene.innerHTML +=
-        `<line
-          x1="${x}"
-          y1="${y}"
-          x2="${x - 4}"
-          y2="${y + length}"
-          stroke="steelblue"
-          stroke-width="2">
-        </line>`;
+      weatherScene.innerHTML += `
+        <path
+          d="M 0 0
+             Q -7 9 0 12
+             Q 7 9 0 0 Z"
+          transform="translate(${x} ${y}) scale(${size / 10})"
+          fill="#638EA4">
+        </path>
+      `;
     }
 
-  } else {
-    // Draw scattered snow dots.
-    const snowCount = randomInt(15, 30);
+    drawCloud(randomInt(100, 115), 25, 1.35, "#A6B8BC");
+    drawCloud(randomInt(45, 60), 50, 1.5, "#FFF9EE");
+
+  } else if (sky === "Snowy") {
+    const snowCount = randomInt(6, 9);
 
     for (let i = 0; i < snowCount; i++) {
-      const x = randomInt(15, 285);
-      const y = randomInt(15, 165);
-      const size = randomInt(2, 5);
+      const x = 45 + i * 25;
+      const y = randomInt(115, 155);
+      const size = randomInt(5, 8);
 
-      weatherScene.innerHTML +=
-        `<circle
-          cx="${x}"
-          cy="${y}"
-          r="${size}"
-          fill="white">
-        </circle>`;
+      // Three crossing lines create six snowflake arms.
+      for (let angle = 0; angle < 180; angle += 60) {
+        weatherScene.innerHTML += `
+          <line
+            x1="${x}"
+            y1="${y - size}"
+            x2="${x}"
+            y2="${y + size}"
+            stroke="#638EA4"
+            stroke-width="2"
+            stroke-linecap="round"
+            transform="rotate(${angle} ${x} ${y})">
+          </line>
+        `;
+      }
     }
+
+    drawCloud(randomInt(100, 115), 25, 1.35, "#A6B8BC");
+    drawCloud(randomInt(45, 60), 50, 1.5, "#FFF9EE");
   }
+}
+
+// [AI-Generated: GPT-6 | 2026-10-25]
+// Intent: Create a reusable rounded cloud from overlapping SVG shapes.
+function drawCloud(x, y, size, color) {
+  weatherScene.innerHTML += `
+    <g
+      transform="translate(${x} ${y}) scale(${size})"
+      fill="${color}">
+      <rect x="18" y="24" width="64" height="26" rx="13"></rect>
+      <circle cx="20" cy="32" r="18"></circle>
+      <circle cx="42" cy="23" r="23"></circle>
+      <circle cx="65" cy="27" r="20"></circle>
+      <circle cx="82" cy="35" r="15"></circle>
+    </g>
+  `;
 }
