@@ -114,5 +114,5 @@ function drawWeather(sky) {
     weatherScene.src = "assets/img/snowy.png";
   }
 
-  weatherScene.alt = sky + " weather illustration";
+  weatherScene.alt = sky + "weather illustration";
 }
